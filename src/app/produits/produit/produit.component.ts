@@ -21,7 +21,7 @@ export class ProduitComponent implements OnInit {
     this.authservice.getProduits().subscribe(
       (resp)=>{
         this.produits = resp;
-        console.log(resp);
+        //console.log(resp);
       },
       (error)=>{
         console.log(error);
