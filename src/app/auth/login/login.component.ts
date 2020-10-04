@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
       "email":"louenkamfrank@gmail.com",
       "password":"warren"
     };*/
-    this.authentification();
   }
 
   /** Permet d'initailiser le formulaire **/
@@ -44,11 +43,12 @@ export class LoginComponent implements OnInit {
       (resp)=>{
           //Si le credentials de l'utilisateur est correct
           this.acces = resp;
-          //console.log(resp);
+          console.log("Connexion reuissie");
+          this.router.navigate(['/produits']);
       },
       (error)=>{
           // Sinon on capture l'exception
-          console.log(error);
+          console.log("Login ou mot de passe incorrect");
       }
     )
   }
