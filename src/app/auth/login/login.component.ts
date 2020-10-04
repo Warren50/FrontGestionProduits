@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servives/auth.service';
 
 @Component({
@@ -13,30 +14,19 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   constructor(
     private authservice : AuthService,
-    private formbuilder : FormBuilder
+    private formbuilder : FormBuilder,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
-    //this.initForm();
-    const data = {
+    this.initForm();
+   /* const data = {
       "email":"louenkamfrank@gmail.com",
-      "password":"wafrren"
-    };
-    console.log(data);
-    this.authentification(data);
+      "password":"warren"
+    };*/
+    this.authentification();
   }
 
-  authentification(data){
-    this.authservice.login(data).subscribe(
-      (resp)=>{
-          this.acces = resp;
-          //console.log(resp);
-      },
-      (error)=>{
-          console.log(error);
-      }
-    )
-  }
   /** Permet d'initailiser le formulaire **/
   initForm(){
     this.loginForm = this.formbuilder.group(
@@ -46,5 +36,22 @@ export class LoginComponent implements OnInit {
       }
     )
   }
+  authentification(){
+    /** Recupération des données du formulaire via la methode active**/
+    const data = this.loginForm.value;
+    //console.log(data);
+    this.authservice.login(data).subscribe(
+      (resp)=>{
+          //Si le credentials de l'utilisateur est correct
+          this.acces = resp;
+          //console.log(resp);
+      },
+      (error)=>{
+          // Sinon on capture l'exception
+          console.log(error);
+      }
+    )
+  }
+  
 
 }
